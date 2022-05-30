@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.reser">
+	<!-- <mapper namespace="com.spring.trip.mapper.TripMapper"> -->
+
+
+
+	<!-- 예약 인서트 -->
+	<insert id="insertReservation" parameterType="java.util.HashMap">
+		insert into
+		tb_reservation
+		values(
+		tb_reservation_seq.nextval,
+		#{member},
+		sysdate,
+		#{reserve_checkin},
+		#{reserve_checkout},
+		#{reserve_pay},
+		0,
+		#{room_no},
+		#{dorm_no},
+		#{pay_no},
+		#{pay_check},
+		#{in_time},
+		#{out_time}
+		)
+	</insert>
+
+	<!-- 예약삭제 -->
+	<delete id="reserDelete" parameterType="int">
+		delete from
+		tb_reservation
+		where reserve_no = #{reserve_no}
+	</delete>
+
+	<!-- 예약리스트 뽑기 -->
+	<select id="selectReservationsList" parameterType="String"
+		resultType="reservationDTO">
+		SELECT reser.reserve_no,
+		dorm.dorm_name,
+		room.room_name, reser.member_id,
+		reser.reserve_checkin, reser.reserve_date,
+		reser.reserve_checkout, reser.reserve_pay, 
+		reser.pay_check, reser.in_time, reser.out_time,
+		room.room_picture, reser.reserve_person , reser.dorm_no
+		FROM tb_reservation reser, tb_room room, tb_dorm dorm
+		WHERE reser.room_no = room.room_no
+		AND reser.dorm_no = room.dorm_no
+		AND room.dorm_no = dorm.dorm_no
+		AND reser.member_id = #{member}
+		ORDER BY reserve_no DESC
+	</select>
+
+	<select id="memberDto" parameterType="String"
+		resultType="memberDTO">
+		select * from tb_member
+		where member_id = #{member}
+	</select>
+
+
+	<!-- 결제인서트 -->
+	<insert id="insertPayment" parameterType="java.util.HashMap">
+		insert into
+		tb_payment
+		values(
+		#{pay_no},
+		#{pay_check},
+		#{member},
+		#{pay_ment},
+		#{pay_num},
+		#{real_name},
+		#{dorm_name},
+		#{room_name}
+		)
+	</insert>
+	
+	<!-- 결제정보 조회
+	<select id="paySelect" parameterType="long" resultType="paymentDTO">
+		select * from tb_payment
+		where pay_no = #{pay_no}
+	</select> -->
+
+ 
+	<select id="paynoSelect" parameterType="int" resultType="long">
+		select pay_no from tb_reservation
+		where reserve_no = #{reserve_no}
+	</select>
+	
+	<select id="nopaynoSelect" parameterType="long" resultType="paymentDTO">
+		select * from tb_payment
+		where pay_no = #{pay_no}
+	</select>
+	
+	<!-- in_time out_time 불러오기 -->
+	<!--  <select i="inoutselect" parameterType="int" resultType="java.util.HashMap">
+		select in_time, out_time from tb_dorm
+		where dorm_no = #{dorm_no}
+	</select> -->
+
+</mapper>

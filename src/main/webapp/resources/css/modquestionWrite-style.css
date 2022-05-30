@@ -1,0 +1,96 @@
+body{
+    width: 100%;
+    margin : 81px 0 0 0 ;
+}
+
+section{
+    margin: auto;
+    width: 600px;
+}
+
+section > hr {
+  width: 100%;
+}
+
+section .question_head {
+	width:600px;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+
+section .question_head > a {
+  color: black;
+}
+
+section .question_head a:hover {
+  font-size: large;
+  transition: all 0.5s;
+}
+
+section .question_text {
+  text-align: center;
+}
+
+.question_input {
+	width : 600px;
+}
+
+section .question_input form .question_input_title {
+  width: 590px;
+  line-height: 30px;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+section .question_input form > p {
+  text-align: left;
+  margin-bottom: 10px;
+  font-size: x-large;
+  font-weight: bold;
+}
+
+section .question_input form > textarea {
+	font-size: large;
+	padding: 10px;
+	width: 580px;
+	height: 300px;
+	resize: none;
+}
+
+section .question_input form .question_input_btn {
+  width: 40%;
+  height: 50px;
+  font-size: large;
+  margin-top: 10px;
+  margin-right: 8px;
+  margin-left: 8px;
+  border-radius: 10px;
+}
+
+section .question_input form .question_input_btn:hover {
+  background-color: rgb(221, 221, 221);
+}
+
+.bts {
+	display : flex;
+	justify-content : space-between;
+	width : 100%;
+}
+
+.question_input_close{
+  width: 40%;
+  height: 50px;
+  font-size: large;
+  margin-top: 40px;
+  margin-right: 8px;
+  margin-left: 30%;
+  border-radius: 10px;
+}
+
+.question_input_close:hover {
+  background-color: rgb(221, 221, 221);
+}
+
+
+	

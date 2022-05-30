@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.admin">
+	<select id="allMembers" resultType="memberDTO">
+		select * from tb_member
+	</select>
+	
+	<update id="adminMember" parameterType="memberDTO">
+		UPDATE tb_member SET
+			member_pw = #{member_pw},
+			member_names = #{member_names},
+			member_tel = #{member_tel},
+			member_authority = #{member_authority}
+		WHERE member_id = #{member_id}
+	</update>
+	
+	<select id="allDorm" resultType="dormDTO">
+		SELECT * FROM tb_dorm
+		ORDER BY dorm_category_no, dorm_no 
+	</select>
+	
+	<update id="adminDorm" parameterType="dormDTO">
+		UPDATE tb_dorm SET
+			dorm_name = #{dorm_name},
+			dorm_contents = #{dorm_contents},
+			dorm_addr = #{dorm_addr},
+			dorm_picture = #{dorm_picture},
+			opt_wifi = #{opt_wifi},
+			opt_parking = #{opt_parking},
+			opt_aircon = #{opt_aircon},
+			opt_dryer = #{opt_dryer},
+			opt_port = #{opt_port},
+			dorm_category_no = #{dorm_category_no},
+			in_time = #{in_time},
+			out_time = #{out_time}
+		WHERE dorm_no = #{dorm_no}
+	</update>
+	
+	<insert id="adminDormInsert" parameterType="dormDTO">
+		INSERT INTO tb_dorm
+		VALUES
+		(
+			tb_dorm_seq.nextval,
+			#{dorm_name},
+			#{dorm_contents},
+			#{dorm_addr},
+			#{dorm_picture},
+			0,
+			#{opt_wifi},
+			#{opt_parking},
+			#{opt_aircon},
+			#{opt_dryer},
+			#{opt_port},
+			#{dorm_category_no},
+			#{in_time},
+			#{out_time}
+		)
+	</insert>
+<!-- 	dorm_no 유효성 -->
+	<select id="dormnoChecking" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM tb_dorm
+		WHERE dorm_no = #{dormno}
+	</select>
+	
+	<delete id="adminDormDelete" parameterType="int">
+		DELETE FROM tb_dorm
+		WHERE dorm_no = #{dormno}
+	</delete>
+	
+	<select id="allRoom" resultType="roomVO">
+		select * from tb_dorm d
+		left join tb_room r
+		on d.dorm_no = r.dorm_no
+		order by d.dorm_no
+	</select>
+	
+	<update id="adminRoom" parameterType="roomDTO">
+		UPDATE tb_room SET
+			room_name = #{room_name},
+			room_contents = #{room_contents},
+			room_picture = #{room_picture},
+			room_pay_day = #{room_pay_day},
+			room_pay_night = #{room_pay_night},
+			room_person = #{room_person}	
+		WHERE room_no = #{room_no}
+	</update>
+	
+	<insert id="adminRoomInsert" parameterType="roomDTO">
+		INSERT INTO tb_room
+		   VALUES
+	    	(
+	    		tb_room_seq.nextval,
+	    		#{room_name},
+	    		#{room_contents},
+	    		#{room_picture},
+	    		#{room_pay_day},
+	    		#{room_pay_night},
+	    		#{room_person},
+	    	)
+	   </insert>
+	
+	<delete id="adminRoomDelete" parameterType="int">
+		DELETE FROM tb_room
+		WHERE room_no = #{room_no}
+	</delete>
+	
+	<!-- 문의조회 -->
+	<select id="allQuestion" resultType="questionDTO">
+		select * from tb_question
+		where question_parentno=0
+		ORDER BY question_no DESC
+	</select>
+	
+	<!-- 글삭제 -->
+	<delete id="admindeleteArticle" parameterType="int" >
+		delete from tb_question
+		where question_no in (
+		select question_no from tb_question
+		start with question_no = #{question_no}
+		connect by prior question_no = question_parentno
+		)
+	</delete>
+	
+	<!-- 답변작성 페이지 -->
+	<select id="adminselectQuestion" resultType="questionDTO" parameterType="int">
+		select * from tb_question
+		where question_no=#{question_no}
+	</select>
+	
+	<!-- 답변작성 -->
+	<insert id="admininsertReplyQuestion" parameterType="questionDTO">
+		INSERT INTO tb_question
+		VALUES (
+			tb_question_seq.nextval,
+			#{question_parentno},
+			#{question_title},
+			#{question_contents},
+			#{question_picture},
+			TO_DATE(SYSDATE, 'YY/MM/DD'),
+			#{question_view},
+			#{member_id}
+		)
+	</insert>
+	
+	<!-- 페이징 -->
+	<select id="countQuestion" resultType="int">
+		SELECT COUNT(*) FROM tb_question
+		WHERE question_parentno = 0
+	</select>	
+	
+	<select id="selectAnswer" resultType="questionDTO" parameterType="java.util.HashMap">
+		select * from tb_question
+		where question_parentno!=0
+	</select>
+	
+	<!-- 수정답글페이지 부모글 조회 -->
+	<select id="selectAllQuestion" resultType="questionDTO" parameterType="int">
+		select * from tb_question
+		where question_no=#{question_no}
+	</select>
+	
+	<!-- 수정답글페이지 -->
+	<select id="selectmodReply" resultType="questionDTO" parameterType="int">
+		select * from tb_question
+		where question_no=#{question_no}
+	</select>
+	
+	<!-- 답글수정 -->
+	<update id="updateReply" parameterType="questionDTO">
+		update tb_question
+		set
+		question_contents = #{question_contents}
+		where question_no = #{question_no}
+	</update>
+	
+	<!-- 답글삭제 -->
+	<delete id="deleteReply" parameterType="int" >
+		delete from tb_question
+		where question_no = #{question_no}
+	</delete>
+</mapper>

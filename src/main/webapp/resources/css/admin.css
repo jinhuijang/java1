@@ -1,0 +1,204 @@
+.center {
+    text-align: center;
+}
+.fl_center {
+    display: flex;
+    justify-content: center;
+}
+
+.nodisplay {
+    display: none;
+}
+
+#wrap_admin{
+    width: 85%;
+    margin: 100px auto;
+}
+
+body{
+    display: flex;
+}
+
+.insert_bt{
+	width: 100px;
+	text-align: center;
+	font-size: 1.1em;
+	font-weight: 500;
+	margin-bottom: 10px;
+}
+
+.nav {
+    margin-top: 100px;
+	display: flex;
+    justify-content: left;    
+}
+
+.tap {
+    display: flex;  
+    flex-direction: column;
+    justify-content: center;
+    width: 50px;
+    margin-bottom : 10px;
+}
+
+.tap_list {
+    width: 85px;
+    padding: 10px 20px 10px 20px;
+    border-top: 1px solid rgb(143, 142, 142);
+    border-bottom: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+	background-color: rgb(65, 65, 65);
+	color: white;
+	z-index : 90;
+}
+.tap_state:hover {
+	background-color: rgb(120, 120, 120);
+}
+
+.tap_state {
+    font-weight: 500;
+    font-size: 15px;
+    color: black;
+    background-color: white;
+}
+
+table {
+    border : 1px solid black;
+    border-collapse: collapse;
+    z-index:5;
+}
+
+th, td {
+    border : 1px solid black;
+    padding: 5px;
+}
+
+th {
+    padding: 10px;
+}
+
+.td_dorm {
+	width :70px;
+}
+#picture{
+	width:120px;
+}
+
+#st4 table .pay{
+	width: 100px;
+}
+#st4 table .no{
+	width: 45px;
+	text-align: center;
+}
+#st4 table #room_picture{
+	width:120px;
+	text-align: center
+}
+#st4 table .no_room{
+	text-align:center; 
+	font-size: 0.9em; 
+	font-weight: 600;
+	background-color: rgb(190, 190, 190); 
+	color:white;
+}
+
+#category {
+	font-size:17px;
+	border:none;
+	color:black;
+	-webkit-appearance:none;
+	opacity: 1;
+}
+
+input {
+    border: none;
+    margin: none;
+    padding: none;
+    font-size: 17px;    
+}
+input:focus {
+    outline: none;
+}
+.contents_bg_off {display:none}
+
+.contents_bg_on {
+ 	position:fixed;
+ 	width:100vw;
+ 	height: 100vh;
+ 	top:0;
+ 	left:0;
+ 	touch-action: none;
+ 	z-index:200;
+ 	background-color : rgb(0,0,0,0.5);
+}
+
+#hidden_contents{
+	width:40vw;
+	height : 40vh;
+	margin: -20vh 0 0 -20vw;
+ 	top: 50vh;
+ 	bottom: 50vh;
+ 	left:50vw;
+ 	right : 50vw;
+ 	position: fixed;
+ 	z-index:200;
+ 	background : white;
+ 	padding :30px;
+}
+
+/**/
+
+.my_info{
+    display: flex; 
+    justify-content:space-between;
+    align-items: center;
+    font-size: 1.3em;
+}
+
+#info_contents{
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+}
+
+#info_contents > div{
+    padding: 5px 50px;
+}
+
+#admin_form{
+    margin-top: 10px;
+    display: flex;
+}
+
+#admin_form input{
+    width: 100px;
+    height: 35px;
+    margin: 30px 15px 0;
+}
+
+.mem_info{
+    margin-left: 100px;
+    font-weight: 400;
+    color: rgb(120, 120, 120);
+}
+
+
+.paging {
+	display : flex;
+	justify-content: center;
+}
+.pagebt {
+	margin : 5px;
+	background : none;
+	border : none;
+	cursor : pointer;
+	font-size : 17px;
+}
+.nowpage {
+	font-weight : bold;
+	color : red;
+}
+
